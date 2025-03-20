@@ -1,0 +1,65 @@
+.history-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+  
+  .history-container h1 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .history-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .history-item {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .history-item h3 {
+    margin: 0 0 10px;
+    color: #4caf50;
+  }
+  
+  .history-item p {
+    margin: 5px 0;
+  }
+  
+  .history-item a {
+    color: #ffcc00;
+    text-decoration: underline;
+  }
+  
+  .history-item img {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  @media (max-width: 480px) {
+    .history-container {
+      width: 90%;
+    }
+  
+    .history-container h1 {
+      font-size: 1.5rem;
+    }
+  
+    .history-item img {
+      max-width: 100%;
+    }
+  }
+  
