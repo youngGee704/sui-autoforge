@@ -1,0 +1,25 @@
+.mainContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .contentWrapper {
+    max-width: 800px;
+    background: var(--background);
+    color: var(--foreground);
+    padding: 20px;
+    border-radius: var(--radius);
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .textContent {
+    font-size: 16px;
+  }
+  

@@ -1,0 +1,75 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0e0e0e;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+  gap: 20px;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    flex-direction: row;
+  }
+}
+
+.textBoxStyle {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 50px;
+  background-color: #1a1a1a; /* Follow the app theme */
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Stretch the box to the right */
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+@media (min-width: 768px) {
+  .textBoxStyle {
+    flex-direction: column; /* Ensure text is aligned properly */
+    align-items: flex-start;
+  }
+}
+
+.textBoxStyle h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+.textBoxStyle h3 {
+  margin-top: 0;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+.textBoxStyle p {
+  margin-bottom: 1em;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+.getStartedButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out; /* Add fluid animation */
+}
+
+.getStartedButton:hover {
+  background-color: #0056b3;
+}
