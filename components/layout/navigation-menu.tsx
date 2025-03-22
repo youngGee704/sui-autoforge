@@ -56,6 +56,7 @@ const menuItemStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  padding: "20px",
 };
 
 export default NavigationMenu;
