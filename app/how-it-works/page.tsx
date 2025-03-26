@@ -6,6 +6,7 @@ import { useWallet } from "@suiet/wallet-kit";
 import NavigationMenu from "../../components/layout/navigation-menu";
 import Navbar from "../../components/layout/navbar";
 import { ConnectButton } from "@suiet/wallet-kit";
+import { FaInfoCircle, FaWallet, FaCogs, FaBook } from "react-icons/fa";
 import "../../styles/homepage.css";
 import "../../styles/how-it-works.css";
 
@@ -15,9 +16,7 @@ const HowItWorks: React.FC = () => {
   const [showProceedButton, setShowProceedButton] = useState(false);
 
   useEffect(() => {
-    if (connected) {
-      setShowProceedButton(true);
-    }
+    setShowProceedButton(connected);
   }, [connected]);
 
   return (
@@ -33,22 +32,20 @@ const HowItWorks: React.FC = () => {
             <div className="contentWrapper">
               <div className="textBoxStyle">
                 <h1 className="title">How It Works</h1>
-                <h3>Step 1: Introduction</h3>
+                <h3>
+                  <FaInfoCircle className="icon" /> Step 1: Introduction
+                </h3>
                 <p>
                   Sui AutoForge automates contract creation and deployment on the Sui blockchain.
                 </p>
-                <h3>Step 2: Connect Wallet</h3>
-                <p>
-                  Before deploying, connect your Sui-compatible wallet.
-                </p>
-                <h3>Step 3: Deploy Contracts</h3>
-                <p>
-                  Use the contract wizard to customize and deploy your smart contracts.
-                </p>
-                <h3>Additional Information</h3>
-                <p>
-                  Here’s more detailed information about the process...
-                </p>
+                <h3>
+                  <FaWallet className="icon" /> Step 2: Connect Wallet
+                </h3>
+                <p>Before deploying, connect your Sui-compatible wallet.</p>
+                <h3>
+                  <FaCogs className="icon" /> Step 3: Deploy Contracts
+                </h3>
+                <p>Use the contract wizard to customize and deploy your smart contracts.</p>
                 <div className="buttonContainer">
                   {!connected && <ConnectButton className="getStartedButton" label="Connect Wallet to Get Started" />}
                   {showProceedButton && (
@@ -63,12 +60,30 @@ const HowItWorks: React.FC = () => {
         </div>
       </div>
       <style jsx>{`
+        .textBoxStyle {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          width: 100%;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 20px;
+          box-sizing: border-box;
+        }
+
+        .icon {
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+
         .buttonContainer {
           display: flex;
           flex-direction: column;
           gap: 15px;
           margin-top: 20px;
         }
+
         .proceedButton {
           background-color: blue;
           color: white;
@@ -77,9 +92,13 @@ const HowItWorks: React.FC = () => {
           border-radius: 5px;
           cursor: pointer;
           font-size: 16px;
+          transition: background-color 0.3s, color 0.3s;
         }
+
         .proceedButton:hover {
-          background-color: black;
+          background-color: white;
+          color: blue;
+          border: 1px solid blue;
         }
       `}</style>
     </>

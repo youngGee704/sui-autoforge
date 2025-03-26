@@ -15,11 +15,11 @@ const HomePage: React.FC = () => {
 
       <main className="main">
         <div className="content">
-          <h1 className="title">Create SUI Token Contracts in Minutes</h1>
+          <h1 className="title">Create SUI Move Contracts in Minutes</h1>
           <div className="underline"></div>
 
           <div className="features">
-            <p>Generate SUI-compliant token contracts</p>
+            <p>Generate SUI-compliant Move contracts</p>
             <p>Convert SUI to NGN, USDT, or other currencies</p>
             <p>Secure wallet integration</p>
           </div>

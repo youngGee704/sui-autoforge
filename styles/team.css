@@ -1,0 +1,173 @@
+/* Meet the Team Title */
+.meet-team-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Team Lead Section */
+.team-lead {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Lead Container */
+.lead-container {
+    display: flex;
+    align-items: center;
+    background: #2a2a2a; /* Matches app theme */
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 60%;
+    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Lead Image */
+.lead-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1.5rem;
+}
+
+/* Lead Info */
+.lead-info {
+    text-align: left;
+    color: #fff;
+}
+
+.lead-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.lead-role {
+    font-size: 1rem;
+    color: #bbbbbb;
+}
+
+/* Team Members Section */
+.team-members-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Team Card */
+.team-card {
+    display: flex;
+    align-items: center;
+    background: #333333;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+/* Team Image */
+.team-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+/* Team Info */
+.team-info {
+    text-align: left;
+    color: #fff;
+}
+
+.team-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.team-role {
+    font-size: 1rem;
+    color: #888888;
+}
+
+/* Twitter Link */
+.team-twitter {
+    display: flex;
+    align-items: center;
+    color: #1DA1F2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* === RESPONSIVENESS FIXES === */
+@media (max-width: 1024px) {
+    .lead-container {
+        width: 80%;
+    }
+
+    .team-members {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-lead {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .lead-container {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .lead-image {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .team-members {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .team-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .meet-team-title {
+        font-size: 1.8rem;
+    }
+
+    .lead-container {
+        width: 95%;
+    }
+
+    .team-card {
+        width: 95%;
+    }
+}

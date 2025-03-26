@@ -50,7 +50,7 @@ export default function ContactsPage() {
                 </div>
                 <div>
                   <h3 className="font-bold">Email</h3>
-                  <p className="text-gray-300">info@suiautoforge.com</p>
+                  <p className="text-gray-300">AutoForge.sui@gmail.com</p>
                 </div>
               </div>
 
@@ -60,7 +60,7 @@ export default function ContactsPage() {
                 </div>
                 <div>
                   <h3 className="font-bold">Phone</h3>
-                  <p className="text-gray-300">+1 (555) 123-4567</p>
+                  <p className="text-gray-300">N/A</p>
                 </div>
               </div>
 
@@ -70,7 +70,7 @@ export default function ContactsPage() {
                 </div>
                 <div>
                   <h3 className="font-bold">Location</h3>
-                  <p className="text-gray-300">123 Blockchain Street, San Francisco, CA 94103</p>
+                  <p className="text-gray-300">Nigeria</p>
                 </div>
               </div>
             </div>

@@ -14,7 +14,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
             <p className="text-gray-300">
-              Sui Autoforge is dedicated to simplifying the creation and management of SUI token contracts. Our platform
+              Sui Autoforge is dedicated to simplifying the creation and management of SUI Move contracts. Our platform
               enables developers and businesses to generate compliant token contracts in minutes, without the need for
               deep blockchain expertise.
             </p>
