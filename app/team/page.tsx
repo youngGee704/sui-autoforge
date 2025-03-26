@@ -14,7 +14,7 @@ const teamMembers = [
   { name: "Sabrina Favour ", role: "Product Designer", twitter: "Favoursabrina2", image: "/sabrina.png" },
   { name: "Obogo Ohepo", role: "Backend Dev", twitter: "member2", image: "/obogo.jpg" },
   { name: "Omuya M Mubalig", role: "AI Engineer", twitter: "DPROM3TH3AN", image: "/dpro.jpg" },
-  { name: "Saliu Rafiu", role: "UI/UX Designer", twitter: "", image: "/path/to/member4.jpg" },
+  { name: "Saliu Rafiu", role: "UI/UX Designer", twitter: "raflab2023", image: "/rafiu.jpg"},
 ];
 
 export default function Team() {
