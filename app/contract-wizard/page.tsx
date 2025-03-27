@@ -7,30 +7,24 @@ import NavigationMenu from "../../components/layout/navigation-menu";
 import Chat from "../../components/layout/chat";
 
 const ContractWizardPage: React.FC = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<{ text: string; isBot: boolean }[]>([]);
   const { connected } = useWallet();
   const router = useRouter();
-  const [hasRedirected, setHasRedirected] = useState<boolean>(() => {
-    return typeof window !== "undefined" && sessionStorage.getItem("redirected") === "true";
-  });
 
   useEffect(() => {
-    if (connected && !hasRedirected) {
-      sessionStorage.setItem("redirected", "true");
-      setHasRedirected(true);
-      router.push("/contract-wizard");
-    } else if (!connected) {
-      alert("Gotcha !, You gotta connect your wallet to access the Contract Wizard.");
-      router.push("/how-it-works");
+    if (!connected) {
+      router.replace("/how-it-works");
+    } else {
+      const redirectedBefore = sessionStorage.getItem("redirected") === "true";
+      if (!redirectedBefore) {
+        sessionStorage.setItem("redirected", "true");
+        router.replace("/contract-wizard");
+      }
     }
-  }, [connected, hasRedirected, router]);
+  }, [connected, router]);
 
-  const handleSendMessage = (message: string) => {
+  const handleSendMessage = (message: { text: string; isBot: boolean }) => {
     setMessages((prev) => [...prev, message]);
-    // Simulate a response from the server
-    setTimeout(() => {
-      setMessages((prevMessages) => [...prevMessages, "Server response to: " + message]);
-    }, 1000);
   };
 
   return (
