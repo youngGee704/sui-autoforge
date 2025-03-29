@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import MainLayout from "../../components/layout/main-layout"
 import { Mail, MapPin, Phone } from "lucide-react"
@@ -19,12 +18,10 @@ export default function ContactsPage() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Here you would typically send the data to your backend
-    alert("Thank you for your message! We'll get back to you soon.")
-    setFormData({ name: "", email: "", subject: "", message: "" })
+  const handleSendEmail = () => {
+    const { name, email, subject, message } = formData
+    const mailtoLink = `mailto:AutoForge.sui@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`
+    window.location.href = mailtoLink
   }
 
   return (
@@ -77,7 +74,7 @@ export default function ContactsPage() {
           </div>
 
           <div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
               <div>
                 <label htmlFor="name" className="block mb-2 font-medium">
                   Name
@@ -139,7 +136,8 @@ export default function ContactsPage() {
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={handleSendEmail}
                 className="bg-[#4e8aff] text-white px-8 py-3 rounded-full hover:bg-[#2683ff] transition-colors"
               >
                 Send Message
@@ -151,4 +149,3 @@ export default function ContactsPage() {
     </MainLayout>
   )
 }
-

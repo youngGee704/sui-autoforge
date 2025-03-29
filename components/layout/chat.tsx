@@ -22,25 +22,49 @@ const Chat: React.FC<ChatProps> = ({ messages, onSendMessage }) => {
 
   const handleSend = async () => {
     if (!inputValue.trim()) return;
-
+  
+    // Allow all relevant Sui Move commands and greetings
+    const allowedKeywords = [
+      "sui move", "move contract", "move module", "sui blockchain", "sui dev",
+      "create a move smart contract", "build move contract", "deploy move contract",
+      "compile move contract", "sui staking", "sui wallet", "sui transactions",
+      "sui gas fees", "sui defi", "sui nft", "sui validators", "sui dapps", "move function",
+      "hello", "hey", "hi", "greetings"
+    ];
+  
+    const lowerPrompt = inputValue.toLowerCase();
+    const words = lowerPrompt.split(/\s+/); // Split input into words
+    const isAllowed = allowedKeywords.some(keyword => 
+      words.some(word => keyword.includes(word))
+    );
+  
+    if (!isAllowed) {
+      onSendMessage({ 
+        text: "❌ Only Sui Move smart contract and blockchain-related questions are allowed.", 
+        isBot: true 
+      });
+      return;
+    }
+  
     setShowSentAlert(true);
     setTimeout(() => setShowSentAlert(false), 1500);
-    
+  
     onSendMessage({ text: inputValue, isBot: false });
     setInputValue("");
     setIsBotThinking(true);
-    
+  
     let botResponse = await getChatResponse(inputValue);
-    
-    if (/sui blockchain|sui smart contract|move language/i.test(inputValue)) {
-      botResponse += `\n\n🔗 **Learn More:**\n- [Sui Blockchain Docs](https://docs.sui.io)\n- [Sui YouTube Tutorials](https://www.youtube.com/results?search_query=sui+blockchain)`;
+  
+    if (!["hello", "hey", "hi", "greetings"].includes(lowerPrompt)) {
+      botResponse += "\n\n🔗 **Learn More:**\n- [Sui Blockchain Docs](https://docs.sui.io)\n- [Sui Move GitHub](https://github.com/MystenLabs/sui)\n- [Sui Developer Discord](https://discord.gg/sui)";
     }
-    
+  
     setTimeout(() => {
       onSendMessage({ text: botResponse, isBot: true });
       setIsBotThinking(false);
     }, 1000);
   };
+  
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -85,7 +109,7 @@ const Chat: React.FC<ChatProps> = ({ messages, onSendMessage }) => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type a message..."
+          placeholder="Ask about Sui Move smart contracts..."
           className="flex-1 px-4 py-2 border border-gray-600 rounded-full bg-gray-700 text-white placeholder-gray-400"
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
