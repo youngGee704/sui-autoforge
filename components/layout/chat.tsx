@@ -1,104 +1,95 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ClipboardCopy, Loader2, CheckCircle } from "lucide-react";
+import { ClipboardCopy, CheckCircle } from "lucide-react";
 import { getChatResponse } from "../../app/api/chat";
+import { supabase } from "./../utils/supabaseClient";
 
 interface ChatProps {
-  messages: { text: string; isBot: boolean }[];
-  onSendMessage: (message: { text: string; isBot: boolean }) => void;
+  walletAddress: string;
 }
 
-const Chat: React.FC<ChatProps> = ({ messages, onSendMessage }) => {
+const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
+  const [messages, setMessages] = useState<{ text: string; isBot: boolean }[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isBotThinking, setIsBotThinking] = useState(false);
-  const [showCopyAlert, setShowCopyAlert] = useState(false);
-  const [showSentAlert, setShowSentAlert] = useState(false);
+  const [copiedMessage, setCopiedMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isBotThinking]);
+    if (walletAddress) {
+      fetchMessages();
+    }
+  }, [walletAddress]);
+
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from("messages")
+      .select("*")
+      .eq("user_id", walletAddress)
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching messages:", error);
+      return;
+    }
+    setMessages(data.map((msg) => ({ text: msg.content, isBot: msg.is_bot })));
+  };
+
+  const saveMessage = async (text: string, isBot: boolean) => {
+    if (!walletAddress) return;
+
+    await supabase.from("messages").insert([
+      { user_id: walletAddress, content: text, is_bot: isBot },
+    ]);
+  };
 
   const handleSend = async () => {
     if (!inputValue.trim()) return;
-  
-    // Allow all relevant Sui Move commands and greetings
-    const allowedKeywords = [
-      "sui move", "move contract", "move module", "sui blockchain", "sui dev",
-      "create a move smart contract", "build move contract", "deploy move contract",
-      "compile move contract", "sui staking", "sui wallet", "sui transactions",
-      "sui gas fees", "sui defi", "sui nft", "sui validators", "sui dapps", "move function",
-      "hello", "hey", "hi", "greetings"
-    ];
-  
-    const lowerPrompt = inputValue.toLowerCase();
-    const words = lowerPrompt.split(/\s+/); // Split input into words
-    const isAllowed = allowedKeywords.some(keyword => 
-      words.some(word => keyword.includes(word))
-    );
-  
-    if (!isAllowed) {
-      onSendMessage({ 
-        text: "❌ Only Sui Move smart contract and blockchain-related questions are allowed.", 
-        isBot: true 
-      });
-      return;
-    }
-  
-    setShowSentAlert(true);
-    setTimeout(() => setShowSentAlert(false), 1500);
-  
-    onSendMessage({ text: inputValue, isBot: false });
+
+    const userMessage = { text: inputValue, isBot: false };
+    setMessages((prev) => [...prev, userMessage]);
+    saveMessage(inputValue, false);
     setInputValue("");
     setIsBotThinking(true);
-  
-    let botResponse = await getChatResponse(inputValue);
-  
-    if (!["hello", "hey", "hi", "greetings"].includes(lowerPrompt)) {
-      botResponse += "\n\n🔗 **Learn More:**\n- [Sui Blockchain Docs](https://docs.sui.io)\n- [Sui Move GitHub](https://github.com/MystenLabs/sui)\n- [Sui Developer Discord](https://discord.gg/sui)";
-    }
-  
-    setTimeout(() => {
-      onSendMessage({ text: botResponse, isBot: true });
-      setIsBotThinking(false);
-    }, 1000);
+
+    const botResponse = await getChatResponse(inputValue, walletAddress);
+
+    setMessages((prev) => [...prev, { text: botResponse, isBot: true }]);
+    saveMessage(botResponse, true);
+    setIsBotThinking(false);
   };
-  
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setShowCopyAlert(true);
-    setTimeout(() => setShowCopyAlert(false), 1500);
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedMessage(text);
+      setTimeout(() => setCopiedMessage(null), 2000);
+    });
   };
 
   return (
-    <div className="flex flex-col w-full h-full p-4 bg-gray-900 text-white rounded-lg shadow-lg relative">
-      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-50">
-        {showCopyAlert && (
-          <div className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md flex items-center">
-            <CheckCircle size={16} className="mr-2" /> Copied!
-          </div>
-        )}
-        {showSentAlert && (
-          <div className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md flex items-center">
-            <CheckCircle size={16} className="mr-2" /> Message Sent!
-          </div>
-        )}
-      </div>
-
+    <div className="flex flex-col w-full h-full p-4 bg-gray-900 text-white rounded-lg shadow-lg">
       <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg border border-gray-700 space-y-3 max-h-[500px]">
         {messages.map((message, index) => (
-          <div key={index} className={`relative p-3 max-w-xl break-words rounded-lg text-sm font-medium whitespace-pre-line ${message.isBot ? "bg-gray-700 text-white self-start ml-4" : "bg-blue-600 text-white self-end mr-4"}`}>
-            {message.text}
-            {message.isBot && (
-              <button
-                onClick={() => handleCopy(message.text)}
-                className="absolute top-2 right-2 text-white opacity-70 hover:opacity-100"
-              >
-                <ClipboardCopy size={16} />
-              </button>
+          <div
+            key={index}
+            className={`relative p-3 max-w-xl break-words rounded-lg text-sm font-medium whitespace-pre-line flex justify-between items-center ${
+              message.isBot ? "bg-gray-700 text-white self-start" : "bg-blue-600 text-white self-end"
+            }`}
+          >
+            {message.text.startsWith("```") ? (
+              <pre className="bg-gray-800 text-green-400 font-mono p-3 rounded-md overflow-x-auto">
+                <code>{message.text.replace(/```/g, "")}</code>
+              </pre>
+            ) : (
+              <span>{message.text}</span>
             )}
+            <button
+              onClick={() => handleCopy(message.text)}
+              className="ml-2 text-gray-300 hover:text-white"
+            >
+              {copiedMessage === message.text ? <CheckCircle size={18} /> : <ClipboardCopy size={18} />}
+            </button>
           </div>
         ))}
         <div ref={messagesEndRef} />
@@ -110,7 +101,7 @@ const Chat: React.FC<ChatProps> = ({ messages, onSendMessage }) => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Ask about Sui Move smart contracts..."
-          className="flex-1 px-4 py-2 border border-gray-600 rounded-full bg-gray-700 text-white placeholder-gray-400"
+          className="flex-1 px-4 py-2 border border-gray-600 rounded-full bg-gray-700 text-white"
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
         <button className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-full" onClick={handleSend}>

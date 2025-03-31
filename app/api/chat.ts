@@ -1,40 +1,19 @@
-// app/api/chat.ts (Frontend function)
-export const getChatResponse = async (message: string) => {
-    try {
-      // Define allowed topics
-      const allowedTopics = [
-        "sui blockchain",
-        "sui smart contract",
-        "move language",
-        "sui move",
-        "sui developer",
-        "sui wallet",
-        "sui network",
-        "sui transactions",
-        "sui gas fees",
-        "sui staking",
-        "sui nft",
-        "sui defi"
-      ];
-  
-      const lowerMessage = message.toLowerCase();
-      const isAllowed = allowedTopics.some(topic => lowerMessage.includes(topic));
-  
-      if (!isAllowed) {
-        return "❌ Only Sui Move smart contracts and Sui blockchain-related questions are allowed.";
-      }
-  
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
-  
-      const data = await response.json();
-      return data.response || "Error: No response from AI";
-    } catch (error) {
-      console.error("Error fetching chat response:", error);
-      return "Error: Failed to reach AI";
+export const getChatResponse = async (message: string, walletAddress: string) => {
+  try {
+    const response = await fetch("https://sui-forge-api.onrender.com/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_message: message, wallet_address: walletAddress }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch response from AI API. Status: ${response.status}`);
     }
-  };
-  
+
+    const data = await response.json();
+    return data.response; // Ensure this matches your backend response structure
+  } catch (error) {
+    console.error("Chat API error:", error);
+    return "⚠️ An error occurred while fetching AI response.";
+  }
+};

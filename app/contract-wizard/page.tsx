@@ -7,9 +7,9 @@ import NavigationMenu from "../../components/layout/navigation-menu";
 import Chat from "../../components/layout/chat";
 
 const ContractWizardPage: React.FC = () => {
-  const [messages, setMessages] = useState<{ text: string; isBot: boolean }[]>([]);
-  const { connected } = useWallet();
+  const { connected, account } = useWallet();
   const router = useRouter();
+  const walletAddress = account?.address || "";
 
   useEffect(() => {
     if (!connected) {
@@ -23,17 +23,14 @@ const ContractWizardPage: React.FC = () => {
     }
   }, [connected, router]);
 
-  const handleSendMessage = (message: { text: string; isBot: boolean }) => {
-    setMessages((prev) => [...prev, message]);
-  };
-
   return (
     <div className="layout-container flex flex-col h-screen">
       <Navbar />
       <div className="main-content flex flex-1">
         <NavigationMenu />
         <div className="chat-container flex flex-1">
-          <Chat messages={messages} onSendMessage={handleSendMessage} />
+          {/* Pass walletAddress to Chat */}
+          <Chat walletAddress={walletAddress} />
         </div>
       </div>
     </div>
