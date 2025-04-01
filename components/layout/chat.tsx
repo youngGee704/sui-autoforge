@@ -98,6 +98,7 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
 
   return (
     <div className="flex flex-col w-full h-full p-4 bg-gray-900 text-white rounded-lg shadow-lg">
+      {/* Messages Container */}
       <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg border border-gray-700 space-y-3 max-h-[500px] relative">
         {messages.map((message, index) => (
           <div
@@ -124,6 +125,8 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
         {isBotThinking && <div className="text-gray-400 italic">Bot is thinking...</div>}
         <div ref={messagesEndRef} />
       </div>
+
+      {/* Scroll Button */}
       {showScrollButton && (
         <button
           onClick={scrollToBottom}
@@ -132,6 +135,8 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
           <ArrowDownCircle size={24} />
         </button>
       )}
+
+      {/* Chat Input Box (Restored) */}
       <div className="flex items-center p-3 mt-2 bg-gray-800 border border-gray-700 rounded-lg">
         <input
           type="text"
