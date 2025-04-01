@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ClipboardCopy, CheckCircle } from "lucide-react";
+import { ClipboardCopy, CheckCircle, ArrowDownCircle } from "lucide-react";
 import { getChatResponse } from "../../app/api/chat";
 import { supabase } from "./../utils/supabaseClient";
 
@@ -15,12 +15,37 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
   const [isBotThinking, setIsBotThinking] = useState(false);
   const [copiedMessage, setCopiedMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     if (walletAddress) {
       fetchMessages();
     }
   }, [walletAddress]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (chatContainerRef.current) {
+        setShowScrollButton(chatContainerRef.current.scrollTop < chatContainerRef.current.scrollHeight - chatContainerRef.current.clientHeight - 100);
+      }
+    };
+
+    const chatElement = chatContainerRef.current;
+    if (chatElement) {
+      chatElement.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (chatElement) {
+        chatElement.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   const fetchMessages = async () => {
     const { data, error } = await supabase
@@ -67,9 +92,13 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
     });
   };
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="flex flex-col w-full h-full p-4 bg-gray-900 text-white rounded-lg shadow-lg">
-      <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg border border-gray-700 space-y-3 max-h-[500px]">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg border border-gray-700 space-y-3 max-h-[500px] relative">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -78,7 +107,7 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
             }`}
           >
             {message.text.startsWith("```") ? (
-              <pre className="bg-gray-800 text-green-400 font-mono p-3 rounded-md overflow-x-auto">
+              <pre className="bg-black text-blue-400 font-mono p-3 rounded-md overflow-x-auto w-full">
                 <code>{message.text.replace(/```/g, "")}</code>
               </pre>
             ) : (
@@ -92,9 +121,17 @@ const Chat: React.FC<ChatProps> = ({ walletAddress }) => {
             </button>
           </div>
         ))}
+        {isBotThinking && <div className="text-gray-400 italic">Bot is thinking...</div>}
         <div ref={messagesEndRef} />
       </div>
-
+      {showScrollButton && (
+        <button
+          onClick={scrollToBottom}
+          className="fixed bottom-16 right-4 bg-blue-600 text-white p-2 rounded-full shadow-lg hover:bg-blue-500"
+        >
+          <ArrowDownCircle size={24} />
+        </button>
+      )}
       <div className="flex items-center p-3 mt-2 bg-gray-800 border border-gray-700 rounded-lg">
         <input
           type="text"
