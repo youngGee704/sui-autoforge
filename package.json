@@ -16,7 +16,7 @@
     "@fontsource/raleway": "^5.2.5",
     "@fontsource/roboto": "^5.2.5",
     "@hookform/resolvers": "^3.9.1",
-    "@mysten/sui.js": "^0.20.0",
+    "@mysten/sui.js": "^0.54.1",
     "@mysten/wallet-adapter-all-wallets": "^0.5.15",
     "@mysten/wallet-adapter-react": "^11.0.0",
     "@radix-ui/react-accordion": "^1.2.2",

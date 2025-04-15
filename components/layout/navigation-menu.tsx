@@ -8,7 +8,7 @@ const NavigationMenu: React.FC = () => {
   const items = [
     { name: "How it works", path: "/how-it-works" },
     { name: "Contract Wizard", path: "/contract-wizard" },
-    { name: "Sui Payment", path: "/sui-payment" },
+    { name: "Deploy Hub", path: "/deploy-hub" },
     { name: "Team", path: "/team" },
     { name: "Support", path: "/support" },
     { name: "History", path: "/history" },
