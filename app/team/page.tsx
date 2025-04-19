@@ -1,6 +1,5 @@
 "use client";
 import { FaXTwitter } from "react-icons/fa6"; // Importing X (Twitter) icon
-import { IoClose } from "react-icons/io5"; // Importing close (X) icon
 import Navbar from "../../components/layout/navbar";
 import NavigationMenu from "../../components/layout/navigation-menu";
 import "../../styles/homepage.css";
@@ -39,7 +38,7 @@ export default function Team() {
             <div className="team-lead">
               <div className="lead-container">
                 <img
-                  src="https://scontent.flos5-2.fna.fbcdn.net/v/t39.30808-1/421951323_352109991050569_3675429368566970326_n.jpg?stp=c0.0.1152.1152a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_ohc=2hWc6oCsZE0Q7kNvgGosXQ9&_nc_oc=AdnqqhsJR-oESDS97n5D-9kFVSSNjvZGiOa3pz84RO2BUUBwS6Zd5bPhPwP0E6AyD4U&_nc_zt=24&_nc_ht=scontent.flos5-2.fna&_nc_gid=XEfxYPoYcUxdWvEJMZWB1A&oh=00_AYERjfbRkuh2IHP2gjCH0C-8eFDZH_KM_WHLe_tSgg_1WA&oe=67E77A4E"
+                  src="/goodness.jpg"
                   alt="Team Lead"
                   className="team-image lead-image"
                 />

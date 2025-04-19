@@ -24,9 +24,9 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold mb-4">Why Choose Us</h2>
             <ul className="space-y-2 text-gray-300">
               {[
-                "Intuitive interface for token creation",
+                "Intuitive Chat interface for Contract creation",
                 "Secure and audited contract templates",
-                "Seamless wallet integration",
+                "Seamless wallet login integration",
                 "Comprehensive documentation and support",
               ].map((feature, index) => (
                 <li key={index} className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export default function AboutPage() {
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Our Technology</h2>
           <p className="text-gray-300 mb-6">
-            Built on the Sui blockchain, our platform leverages the latest advancements in blockchain technology to
+            Built on the Sui blockchain, our platform leverages the latest advancements in sui blockchain technology to
             provide a secure, efficient, and user-friendly experience. We prioritize security, scalability, and ease of
             use in all our solutions.
           </p>
@@ -50,12 +50,10 @@ export default function AboutPage() {
             <h3 className="text-xl font-bold mb-4">Key Features</h3>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { title: "Token Generation", desc: "Create custom tokens with configurable parameters" },
-                { title: "Currency Conversion", desc: "Seamlessly convert between SUI and other currencies" },
-                { title: "Wallet Integration", desc: "Connect securely with popular crypto wallets" },
+                { title: "Contract Generation", desc: "Create custom contracts with configurable parameters" },
+                { title: "Deploy Hub", desc: "Seamlessly deploy generated contract to the sui blockchain" },
+                { title: "Wallet Integration", desc: "Easy Login integration with the sui wallet" },
                 { title: "Contract Templates", desc: "Pre-built, audited contract templates" },
-                { title: "Analytics Dashboard", desc: "Monitor token performance and metrics" },
-                { title: "Developer API", desc: "Integrate our services into your applications" },
               ].map((feature, index) => (
                 <div key={index} className="p-4 bg-[#1f2937] rounded-lg">
                   <h4 className="font-bold mb-2">{feature.title}</h4>

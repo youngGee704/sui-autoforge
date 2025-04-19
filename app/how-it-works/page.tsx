@@ -45,7 +45,7 @@ const HowItWorks: React.FC = () => {
                 <h3>
                   <FaCogs className="icon" /> Step 3: Deploy Contracts
                 </h3>
-                <p>Use the contract wizard to customize and deploy your smart contracts.</p>
+                <p>Use the contract wizard to create your contracts  and deploy them in the deploy Hub.</p>
                 <div className="buttonContainer">
                   {!connected && <ConnectButton className="getStartedButton" label="Connect Wallet to Get Started" />}
                   {showProceedButton && (
