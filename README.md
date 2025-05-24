@@ -1,2 +1,2 @@
 # sui-autoforge
-An AI-powered Auto Smart Contract Builder on Sui
+An AI-powered Smart Contract Builder and deployer on Sui
