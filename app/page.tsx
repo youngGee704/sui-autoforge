@@ -19,9 +19,9 @@ const HomePage: React.FC = () => {
           <div className="underline"></div>
 
           <div className="features">
-            <p>Generate SUI-compliant Move contracts</p>
-            <p>Convert SUI to NGN, USDT, or other currencies</p>
-            <p>Secure wallet integration</p>
+            <p>Generate SUI Move Smart contracts</p>
+            <p>Deploy Contracts to Testnet|Devnet|Mainnet</p>
+            <p>-With An Amazing friendly interface</p>
           </div>
 
           <Link href="/how-it-works">

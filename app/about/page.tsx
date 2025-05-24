@@ -14,9 +14,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
             <p className="text-gray-300">
-              Sui Autoforge is dedicated to simplifying the creation and management of SUI Move contracts. Our platform
-              enables developers and businesses to generate compliant token contracts in minutes, without the need for
-              deep blockchain expertise.
+              Sui Autoforge is dedicated to simplifying the creation and management of SUI Move contracts. Our platform enables developers and businesses to generate contracts and Deploy them in minutes, without the need for deep blockchain expertise.
             </p>
           </div>
 
@@ -24,7 +22,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold mb-4">Why Choose Us</h2>
             <ul className="space-y-2 text-gray-300">
               {[
-                "Intuitive interface for token creation",
+                "Intuitive Chat interface for Contract creation",
                 "Secure and audited contract templates",
                 "Seamless wallet integration",
                 "Comprehensive documentation and support",
@@ -50,12 +48,12 @@ export default function AboutPage() {
             <h3 className="text-xl font-bold mb-4">Key Features</h3>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { title: "Token Generation", desc: "Create custom tokens with configurable parameters" },
-                { title: "Currency Conversion", desc: "Seamlessly convert between SUI and other currencies" },
-                { title: "Wallet Integration", desc: "Connect securely with popular crypto wallets" },
+                { title: "Contract Generation", desc: "Create custom contracts with configurable parameters" },
+                { title: "Deploy Hub", desc: "Seamlessly deploy generated contract to the sui blockchain" },
+                { title: "Wallet Integration", desc: "Easy Login integration with the sui-supported wallet"},
                 { title: "Contract Templates", desc: "Pre-built, audited contract templates" },
-                { title: "Analytics Dashboard", desc: "Monitor token performance and metrics" },
-                { title: "Developer API", desc: "Integrate our services into your applications" },
+                { title: "Analytics Dashboard", desc: "Monitor your contract performance and metrics //under development" },
+                { title: "Developer API", desc: "Integrate our services into your applications //under Development" },
               ].map((feature, index) => (
                 <div key={index} className="p-4 bg-[#1f2937] rounded-lg">
                   <h4 className="font-bold mb-2">{feature.title}</h4>
